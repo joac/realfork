@@ -1,20 +1,22 @@
 const realfork = require('bindings')('realfork');
 
 
-console.log("Esto es antes del fork");
+console.log("This happens before the fork");
 
 let i = 0
 
 if (realfork.fork()) {
-  console.log("Soy el hijo");
+  console.log("I'm the child");
   for (i=0; i<100; i++) {
-    console.log('hijo', i);
+    realfork.sleep();
+    console.log("child", i);
   }
 } else {
-  console.log("Soy el padre");
+  console.log("I'm the parent");
   for (i=0; i<50; i++) {
-    console.log('padre', i);
+    realfork.sleep();
+    console.log("parent", i);
   }
 }
-console.log("Terminé");
+console.log("finished");
 

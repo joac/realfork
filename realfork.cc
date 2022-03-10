@@ -17,9 +17,17 @@ Napi::Boolean Fork(const Napi::CallbackInfo& info) {
     }
 }
 
+Napi::Boolean Sleep(const Napi::CallbackInfo& info) {
+    Napi::Env env = info.Env();
+    sleep(1);
+    return Napi::Boolean::New(env, true);
+}
+
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
   exports.Set(Napi::String::New(env, "fork"),
               Napi::Function::New(env, Fork));
+  exports.Set(Napi::String::New(env, "sleep"),
+              Napi::Function::New(env, Sleep));
   return exports;
 }
 
